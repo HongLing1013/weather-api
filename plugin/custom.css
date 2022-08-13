@@ -1,0 +1,311 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+h1{
+  color: rgb(52, 177, 218);
+}
+
+/*白雲 */
+#clouds {
+  padding: 100px 0;
+  background: #c9dbe9;
+  background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+  background: -linear-gradient(top, #c9dbe9 0%, #fff 100%);
+  background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+}
+
+/*Time to finalise the cloud shape*/
+.cloud {
+  width: 200px;
+  height: 60px;
+  background: #fff;
+
+  border-radius: 200px;
+  -moz-border-radius: 200px;
+  -webkit-border-radius: 200px;
+
+  position: relative;
+}
+
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  width: 100px;
+  height: 80px;
+  position: absolute;
+  top: -15px;
+  left: 10px;
+
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+}
+
+.cloud:after {
+  width: 120px;
+  height: 120px;
+  top: -55px;
+  left: auto;
+  right: 15px;
+}
+
+/* 雲朵動畫 */
+.x1 {
+  -webkit-animation: moveclouds 15s linear infinite;
+  -moz-animation: moveclouds 15s linear infinite;
+  -o-animation: moveclouds 15s linear infinite;
+}
+
+/*variable speed, opacity, and position of clouds for realistic effect*/
+.x2 {
+  left: 200px;
+
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  transform: scale(0.6);
+  opacity: 0.6;
+  /*opacity proportional to the size*/
+
+  /*Speed will also be proportional to the size and opacity*/
+  /*More the speed. Less the time in 's' = seconds*/
+  -webkit-animation: moveclouds 25s linear infinite;
+  -moz-animation: moveclouds 25s linear infinite;
+  -o-animation: moveclouds 25s linear infinite;
+}
+
+.x3 {
+  left: -250px;
+  top: -200px;
+
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8;
+  /*opacity proportional to the size*/
+
+  -webkit-animation: moveclouds 20s linear infinite;
+  -moz-animation: moveclouds 20s linear infinite;
+  -o-animation: moveclouds 20s linear infinite;
+}
+
+.x4 {
+  left: 470px;
+  top: -250px;
+
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  opacity: 0.75;
+  /*opacity proportional to the size*/
+
+  -webkit-animation: moveclouds 18s linear infinite;
+  -moz-animation: moveclouds 18s linear infinite;
+  -o-animation: moveclouds 18s linear infinite;
+}
+
+.x5 {
+  left: -150px;
+  top: -150px;
+
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.8;
+  /*opacity proportional to the size*/
+
+  -webkit-animation: moveclouds 20s linear infinite;
+  -moz-animation: moveclouds 20s linear infinite;
+  -o-animation: moveclouds 20s linear infinite;
+}
+
+@-webkit-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+@-moz-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+@-o-keyframes moveclouds {
+  0% {
+    margin-left: 1000px;
+  }
+
+  100% {
+    margin-left: -1000px;
+  }
+}
+
+/* 頁籤 */
+
+section{
+  margin-top: -15vh;
+  display: flex;
+  justify-content: center;
+}
+
+
+#tab {
+  width: 70vw;
+  background: rgb(52, 177, 218);
+  border: solid 1px rgb(52, 177, 218);
+}
+
+/* 頁籤ul */
+#tab>ul {
+  /* overflow: hidden; */
+  margin: 0;
+  padding: 10px 20px 0 20px;
+}
+
+#tab>ul>li {
+  list-style-type: none;
+}
+
+/* 頁籤上的文字 */
+#tab>ul>li>a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #333;
+  float: left;
+  padding: 10px;
+  margin-left: 5px;
+}
+
+/*頁籤div內容*/
+#tab>div {
+  clear: both;
+  padding: 0 15px;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/*第一筆的底色*/
+span:target~#tab>ul li:first-child a {
+  background: rgb(52, 177, 218);
+}
+
+span:target~#tab>div:first-of-type {
+  visibility: hidden;
+  height: 0;
+  padding: 0 15px;
+}
+
+/*頁籤變換&第一筆*/
+span~#tab>ul li:first-child a,
+#tab-0:target~#tab>ul li a[href$="#tab-0"],
+#tab-1:target~#tab>ul li a[href$="#tab-1"],
+#tab-2:target~#tab>ul li a[href$="#tab-2"],
+#tab-3:target~#tab>ul li a[href$="#tab-3"],
+#tab-4:target~#tab>ul li a[href$="#tab-4"],
+#tab-5:target~#tab>ul li a[href$="#tab-5"],
+#tab-6:target~#tab>ul li a[href$="#tab-6"],
+#tab-7:target~#tab>ul li a[href$="#tab-7"],
+#tab-8:target~#tab>ul li a[href$="#tab-8"],
+#tab-9:target~#tab>ul li a[href$="#tab-9"],
+#tab-10:target~#tab>ul li a[href$="#tab-10"],
+#tab-11:target~#tab>ul li a[href$="#tab-11"],
+#tab-12:target~#tab>ul li a[href$="#tab-12"],
+#tab-13:target~#tab>ul li a[href$="#tab-13"],
+#tab-14:target~#tab>ul li a[href$="#tab-14"],
+#tab-15:target~#tab>ul li a[href$="#tab-15"],
+#tab-16:target~#tab>ul li a[href$="#tab-16"],
+#tab-17:target~#tab>ul li a[href$="#tab-17"],
+#tab-18:target~#tab>ul li a[href$="#tab-18"],
+#tab-19:target~#tab>ul li a[href$="#tab-19"],
+#tab-20:target~#tab>ul li a[href$="#tab-20"],
+#tab-21:target~#tab>ul li a[href$="#tab-21"]{
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+}
+
+span~#tab>ul li:first-child a::before,
+#tab-0:target~#tab>ul li a[href$="#tab-0"]::before,
+#tab-1:target~#tab>ul li a[href$="#tab-1"]::before,
+#tab-2:target~#tab>ul li a[href$="#tab-2"]::before,
+#tab-3:target~#tab>ul li a[href$="#tab-3"]::before,
+#tab-4:target~#tab>ul li a[href$="#tab-4"]::before,
+#tab-5:target~#tab>ul li a[href$="#tab-5"]::before,
+#tab-6:target~#tab>ul li a[href$="#tab-6"]::before,
+#tab-7:target~#tab>ul li a[href$="#tab-7"]::before,
+#tab-8:target~#tab>ul li a[href$="#tab-8"]::before,
+#tab-9:target~#tab>ul li a[href$="#tab-9"]::before,
+#tab-10:target~#tab>ul li a[href$="#tab-10"]::before,
+#tab-11:target~#tab>ul li a[href$="#tab-11"]::before,
+#tab-12:target~#tab>ul li a[href$="#tab-12"]::before,
+#tab-13:target~#tab>ul li a[href$="#tab-13"]::before,
+#tab-14:target~#tab>ul li a[href$="#tab-14"]::before,
+#tab-15:target~#tab>ul li a[href$="#tab-15"]::before,
+#tab-16:target~#tab>ul li a[href$="#tab-16"]::before,
+#tab-17:target~#tab>ul li a[href$="#tab-17"]::before,
+#tab-18:target~#tab>ul li a[href$="#tab-18"]::before,
+#tab-19:target~#tab>ul li a[href$="#tab-19"]::before,
+#tab-20:target~#tab>ul li a[href$="#tab-20"]::before,
+#tab-21:target~#tab>ul li a[href$="#tab-21"]::before {
+  background-color: white;
+  height: 100%;
+}
+
+/*頁籤內容顯示&第一筆*/
+span~#tab>div:first-of-type,
+#tab-0:target~#tab>div.tab-content-0,
+#tab-1:target~#tab>div.tab-content-1,
+#tab-2:target~#tab>div.tab-content-2,
+#tab-3:target~#tab>div.tab-content-3,
+#tab-4:target~#tab>div.tab-content-4,
+#tab-5:target~#tab>div.tab-content-5,
+#tab-6:target~#tab>div.tab-content-6,
+#tab-7:target~#tab>div.tab-content-7,
+#tab-8:target~#tab>div.tab-content-8,
+#tab-9:target~#tab>div.tab-content-9,
+#tab-10:target~#tab>div.tab-content-10,
+#tab-11:target~#tab>div.tab-content-11,
+#tab-12:target~#tab>div.tab-content-12,
+#tab-13:target~#tab>div.tab-content-13,
+#tab-14:target~#tab>div.tab-content-14,
+#tab-15:target~#tab>div.tab-content-15,
+#tab-16:target~#tab>div.tab-content-16,
+#tab-17:target~#tab>div.tab-content-17,
+#tab-18:target~#tab>div.tab-content-18,
+#tab-19:target~#tab>div.tab-content-19,
+#tab-20:target~#tab>div.tab-content-20,
+#tab-21:target~#tab>div.tab-content-21{
+  visibility: visible;
+  height: 200px;
+  background: #fff;
+}
+
+span {
+  display: none;
+}
+
+table{
+  width: 100%;
+  height: 60%;
+}
+
+th{
+  line-height: 5vh;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- google font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Note+Sans+TC&family=Roboto&display=swap" rel="stylesheet">
+
+  <!-- JQ -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="./plugin/custom.css">
+</head>
+
+<body>
+
+  <!-- 雲朵 開始 -->
+  <div id="clouds">
+    <h1 style="text-align: center;">36小時天氣預報</h1>
+    <div class="cloud x1"></div>
+    <!-- Time for multiple clouds to dance around -->
+    <div class="cloud x2"></div>
+    <div class="cloud x3"></div>
+    <div class="cloud x4"></div>
+    <div class="cloud x5"></div>
+
+  <!-- 雲朵 結束 -->
+
+  <!-- 頁籤 start -->
+  <section>
+    <span id="tab-0"></span>
+    <span id="tab-1"></span>
+    <span id="tab-2"></span>
+    <span id="tab-3"></span>
+    <span id="tab-4"></span>
+    <span id="tab-5"></span>
+    <span id="tab-6"></span>
+    <span id="tab-7"></span>
+    <span id="tab-8"></span>
+    <span id="tab-9"></span>
+    <span id="tab-10"></span>
+    <span id="tab-11"></span>
+    <span id="tab-12"></span>
+    <span id="tab-13"></span>
+    <span id="tab-14"></span>
+    <span id="tab-15"></span>
+    <span id="tab-16"></span>
+    <span id="tab-17"></span>
+    <span id="tab-18"></span>
+    <span id="tab-19"></span>
+    <span id="tab-20"></span>
+    <span id="tab-21"></span>
+  
+    <!-- 頁籤按鈕 -->
+    <main id="tab" >
+      <ul>
+        <!-- 使用JQ迴圈塞入內容 -->
+      </ul>
+      <!-- 頁籤的內容區塊 使用JQ迴圈塞入內容 -->
+    </main>
+
+  </section>
+  <!-- 頁籤 結束 -->
+</div>
+
+  <script>
+    let data;
+    $.getJSON('https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=CWB-77F7EF76-6578-458C-ACDF-72ABF4BE7727&downloadType=WEB&format=JSON').done(function (re) {
+      // re => data => DOM write => HTML
+      // 先用一個全域變數接受
+      tt = re;
+      data = re.cwbopendata.dataset.location;
+
+      // 標題 用陣列把數字轉成中文( 0,6,12,18=>凌晨,白天,下午,晚上 )
+      const hurTxt = new Array();
+      hurTxt[0] = "凌晨"; //night
+      hurTxt[6] = "白天"; //day
+      hurTxt[12] = "下午"; //day
+      hurTxt[18] = "晚上"; //night
+
+      // 標題內的文字
+      const
+        time0 = new Date(data[21].weatherElement[0].time[0].startTime),
+        time1 = new Date(data[21].weatherElement[0].time[1].startTime),
+        time2 = new Date(data[21].weatherElement[0].time[2].startTime);
+      // console.log(time0,time1,time2);
+      timeTxt0 = `${time0.getFullYear() + "/" + (time0.getMonth() + 1) + "/" + time0.getDate()} ${hurTxt[time0.getHours()]}`;
+      timeTxt1 = `${time1.getFullYear() + "/" + (time1.getMonth() + 1) + "/" + time1.getDate()} ${hurTxt[time1.getHours()]}`;
+      timeTxt2 = `${time2.getFullYear() + "/" + (time2.getMonth() + 1) + "/" + time2.getDate()} ${hurTxt[time2.getHours()]}`;
+      // console.log(timeTxt0,timeTxt1,timeTxt2);
+
+      // 使用JQ把變數寫入標題內
+      $("tr>th").eq(2).text(timeTxt0);
+      $("tr>th").eq(3).text(timeTxt1);
+      $("tr>th").eq(4).text(timeTxt2);
+
+      //控制圖片 
+      const
+        iconTxt0 = (time0.getHours() == 6 || time0.getHours() == 12) ? "day" : "night",
+        iconTxt1 = (time1.getHours() == 6 || time1.getHours() == 12) ? "day" : "night",
+        iconTxt2 = (time2.getHours() == 6 || time2.getHours() == 12) ? "day" : "night";
+
+      // 22個縣市 用迴圈印出陣列
+      for (let i = 0; i < data.length; i++) {
+        // 用append塞進tbody裡面
+        $("ul").append(`
+        <li><a href="#tab-${i}">${data[i].locationName}</a></li>
+        `)
+      }
+      // 22個縣市 用迴圈印出陣列
+      for (let i = 0; i < data.length; i++) {
+        // 用append塞進tbody裡面
+        $("main").append(`
+        <div class="tab-content-${i}">
+          <table>
+        <thead>
+          <tr style="color:skyblue">
+            <th>${timeTxt0}</th>
+            <th>${timeTxt1}</th>
+            <th>${timeTxt2}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center">
+              <img src="./img/${iconTxt0}/${data[i].weatherElement[0].time[0].parameter.parameterValue}.svg" style="width:3rem"><br>
+              ${data[i].weatherElement[0].time[0].parameter.parameterName}  <br> 
+              溫度 ${data[i].weatherElement[2].time[0].parameter.parameterName}~${data[i].weatherElement[1].time[0].parameter.parameterName}°C 
+            </td>
+            <td style="text-align:center">
+              <img src="./img/${iconTxt0}/${data[i].weatherElement[0].time[1].parameter.parameterValue}.svg" style="width:3rem"><br>
+               ${data[i].weatherElement[0].time[1].parameter.parameterName}  <br> 
+               溫度 ${data[i].weatherElement[2].time[1].parameter.parameterName}~${data[i].weatherElement[1].time[1].parameter.parameterName}°C 
+            </td>
+            <td style="text-align:center">
+              <img src="./img/${iconTxt0}/${data[i].weatherElement[0].time[0].parameter.parameterValue}.svg" style="width:3rem"><br>
+               ${data[i].weatherElement[0].time[2].parameter.parameterName}  <br> 
+               溫度 ${data[i].weatherElement[2].time[2].parameter.parameterName}~${data[i].weatherElement[1].time[2].parameter.parameterName}°C 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      </div>
+        `);
+      }
+
+
+    }).fail(function (re) {
+      console.log("api error!", re);
+    });
+  </script>
+
+
+</body>
+
+</html>
