@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- 1.先去取得API授權　https://opendata.cwb.gov.tw/user/authkey
+     2.去這裡取得 https://opendata.cwb.gov.tw/dist/opendata-swagger.html#/%E9%A0%90%E5%A0%B1/get_v1_rest_datastore_F_C0032_001 -->
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +73,7 @@
 
   <script>
     let data;
-    $.getJSON('https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=CWB-77F7EF76-6578-458C-ACDF-72ABF4BE7727&downloadType=WEB&format=JSON').done(function (re) {
+    $.getJSON('https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=CWB-42DD7FA7-700F-45C8-B304-C2499D719BC1&downloadType=WEB&format=JSON').done(function (re) {
       // re => data => DOM write => HTML
       // 先用一個全域變數接受
       tt = re;
